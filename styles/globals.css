@@ -79,6 +79,7 @@
   margin: 0;
   font-family: "BagelFatOne-Regular";
   white-space: pre-wrap;
+  caret-color: transparent;
 }
 
 @font-face {
