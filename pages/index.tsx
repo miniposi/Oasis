@@ -1,6 +1,13 @@
 import styled from "styled-components";
+import { useRouter } from "next/router";
 
 export default function Home() {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push("/login");
+  };
+
   return (
     <StyledWrapper>
       <StyledImg src="startcat.png" alt="메인 고양이 이미지" />
@@ -9,7 +16,9 @@ export default function Home() {
         <StyledContent>
           <StyledSubtitle>모든 반려동물 용품 정보를 한번에!</StyledSubtitle>
           <StyledTitle>펫 리뷰 오아시스</StyledTitle>
-          <StyledButton type="button">지금 시작하기</StyledButton>
+          <StyledButton type="button" onClick={handleClick}>
+            지금 시작하기
+          </StyledButton>
         </StyledContent>
       </StyledInnerWrapper>
     </StyledWrapper>
