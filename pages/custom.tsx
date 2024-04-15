@@ -1,42 +1,41 @@
 import styled from "styled-components";
 import { CustomCatData, CustomDogData } from "@/data/CustomData";
-import { useState } from 'react';
+import { useState } from "react";
 
 interface ButtonProps {
-  isActive: true | false;
+  $isActive: boolean;
 }
 
 interface AnimalTypeProps {
-  type: 'cat' | 'dog';
+  type: "cat" | "dog";
 }
 
 export default function CustomPage() {
-  const [type, setType] = useState<AnimalTypeProps['type']>('cat');
-  const [name, setName] = useState<string>('');
-  const [species, setSpecies] = useState<string>('말티즈');
+  const [type, setType] = useState<AnimalTypeProps["type"]>("cat");
+  const [name, setName] = useState<string>("");
+  const [species, setSpecies] = useState<string>("말티즈");
   const [selectedID, setSelectedID] = useState(1);
 
-  const handleAnimalType = (type: 'cat' | 'dog') => {
+  const handleAnimalType = (type: "cat" | "dog") => {
     setType(type);
-    if (type === 'cat') setSpecies('코리안 숏헤어');
-    else setSpecies('말티즈');
-  }
+    if (type === "cat") setSpecies("코리안 숏헤어");
+    else setSpecies("말티즈");
+  };
 
-  const getCustomMap = (type: 'cat' | 'dog') => {
-    return type === 'cat' ? CustomCatData : CustomDogData;
-  }
-  
-  const handleSubmit = (event: { preventDafault: () => void; }) => {
+  const getCustomMap = (type: "cat" | "dog") => {
+    return type === "cat" ? CustomCatData : CustomDogData;
+  };
+
+  const handleSubmit = (event: { preventDefault: () => void }) => {
     // 폼 제출 막기
-    event.preventDafault();
-
+    event.preventDefault();
     // @TODO 백엔드로 캐릭터 데이터 넘기기
-  }
+  };
 
   const handleSelect = (item: any) => {
     setSpecies(item.name);
     setSelectedID(item.id);
-  }
+  };
 
   return (
     <StyledWrapper>
@@ -44,30 +43,43 @@ export default function CustomPage() {
       <StyledInnerWrapper>
         <StyledChose>
           <StyledButtonHeader>
-            <StyledButton type="button" isActive={type === 'dog' ? true : false} onClick={() => handleAnimalType('dog')}>
+            <StyledButton
+              type="button"
+              $isActive={type === "dog" ? true : false}
+              onClick={() => handleAnimalType("dog")}
+            >
               강아지
             </StyledButton>
-            <StyledButton type="button" isActive={type === 'cat' ? true : false} onClick={() => handleAnimalType('cat')}>
+            <StyledButton
+              type="button"
+              $isActive={type === "cat" ? true : false}
+              onClick={() => handleAnimalType("cat")}
+            >
               고양이
             </StyledButton>
           </StyledButtonHeader>
           <StyledCustomWrapper>
-            {getCustomMap(type).map(item => (
-                <StyledCustom key={item.id} onClick={() => handleSelect(item)}>
-                  <StyledImg src={item.src} alt={item.name}/>
-                  <StyledNameTag isActive={selectedID === item.id ? true : false}>{item.name}</StyledNameTag>
-                </StyledCustom>
+            {getCustomMap(type).map((item) => (
+              <StyledCustom key={item.id} onClick={() => handleSelect(item)}>
+                <StyledImg src={item.src} alt={item.name} />
+                <StyledNameTag
+                  $isActive={selectedID === item.id ? true : false}
+                >
+                  {item.name}
+                </StyledNameTag>
+              </StyledCustom>
             ))}
           </StyledCustomWrapper>
         </StyledChose>
         <StyledContent>
           <StyledInput
-            type='text'
-            placeholder='이름을 입력하세요'
-            value={name} onChange={(e) => setName(e.target.value)}
+            type="text"
+            placeholder="이름을 입력하세요"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
           <StyledSelectedSpecies>{species}</StyledSelectedSpecies>
-          <StyledSubmitButton type='button'>선택 완료</StyledSubmitButton>
+          <StyledSubmitButton type="button">선택 완료</StyledSubmitButton>
         </StyledContent>
       </StyledInnerWrapper>
     </StyledWrapper>
@@ -82,11 +94,11 @@ const StyledWrapper = styled.div`
 
 const StyledHeader = styled.div`
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
   width: 1224px;
   height: 144px;
-  color: #FFF;
+  color: #fff;
   text-align: center;
   font-size: 48px;
   margin: 60px auto;
@@ -96,7 +108,7 @@ const StyledInnerWrapper = styled.div`
   width: 1531px;
   height: 750px;
   display: flex;
-  justify-contents: center;
+  justify-content: center;
   align-items: center;
   margin: auto;
 `;
@@ -116,10 +128,10 @@ const StyledButton = styled.button<ButtonProps>`
   width: 243px;
   height: 96px;
   border-radius: 61px;
-  border: ${({ isActive }) => (isActive ? '0' : '3px solid #FFF')};
-  background: ${({ isActive }) => isActive ? '#FFF' : '#678FAE'};
-  z-index: ${({ isActive }) => isActive ? 3 : 0};
-  color: ${({ isActive }) => isActive ? '#678FAE' : '#FFF'};
+  border: ${({ $isActive }) => ($isActive ? "0" : "3px solid #FFF")};
+  background: ${({ $isActive }) => ($isActive ? "#FFF" : "#678FAE")};
+  z-index: ${({ $isActive }) => ($isActive ? 3 : 0)};
+  color: ${({ $isActive }) => ($isActive ? "#678FAE" : "#FFF")};
   font-size: 30px;
 `;
 
@@ -157,7 +169,7 @@ const StyledCustom = styled.div`
 const StyledImg = styled.img`
   width: 200px;
   height: 200px;
-  border: 2px solid #FFF;
+  border: 2px solid #fff;
   border-radius: 30%;
   position: relative;
   top: 40px;
@@ -166,9 +178,9 @@ const StyledImg = styled.img`
 const StyledNameTag = styled.p<ButtonProps>`
   width: 150px;
   padding: 20px 0;
-  background: ${({ isActive }) => isActive ? '#FFF' : '#8ea4b9'};
-  color: ${({ isActive }) => isActive ? '#678FAE' : '#FFF'};
-  border: ${({ isActive }) => (isActive ? '0' : '1px solid #FFF')};
+  background: ${({ $isActive }) => ($isActive ? "#FFF" : "#8ea4b9")};
+  color: ${({ $isActive }) => ($isActive ? "#678FAE" : "#FFF")};
+  border: ${({ $isActive }) => ($isActive ? "0" : "1px solid #FFF")};
   border-radius: 100px;
   text-align: center;
   z-index: 3;
@@ -179,14 +191,14 @@ const StyledInput = styled.input`
   height: 102px;
   border: 0;
   border-radius: 27px;
-  background: #FFF;
+  background: #fff;
   text-align: center;
   font-size: 32px;
-  color: #678FAE;
-  caret-color: #678FAE;
+  color: #678fae;
+  caret-color: #678fae;
 
   ::placeholder {
-    color: #678FAE;
+    color: #678fae;
     font-size: 32px;
   }
 
@@ -198,13 +210,13 @@ const StyledInput = styled.input`
 const StyledSubmitButton = styled.button`
   width: 535px;
   height: 102px;
-  border: 3px solid #FFF;
+  border: 3px solid #fff;
   border-radius: 27px;
-  background: #678FAE;
+  background: #678fae;
   text-align: center;
   font-size: 32px;
-  color: #FFF;
-`
+  color: #fff;
+`;
 
 const StyledSelectedSpecies = styled.p`
   display: flex;
@@ -214,8 +226,8 @@ const StyledSelectedSpecies = styled.p`
   height: 102px;
   border: 0;
   border-radius: 27px;
-  background: #FFF;
+  background: #fff;
   text-align: center;
   font-size: 32px;
-  color: #678FAE;
+  color: #678fae;
 `;
