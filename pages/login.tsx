@@ -9,11 +9,11 @@ export default function LoginPage() {
           간편하게 소셜 로그인<br></br>계정을 사용하여 로그인하세요!
         </StyledPag>
         <StyledButton type="button" style={{ backgroundColor: "#FFEB3B" }}>
-          <StyledButtonImg src="kakaoicon.png" alt="카카오톡 아이콘" />
+          <StyledButtonImg src="icon/kakaoicon.png" alt="카카오톡 아이콘" />
           Sign in with Kakao
         </StyledButton>
         <StyledButton type="button" style={{ backgroundColor: "#FFF" }}>
-          <StyledButtonImg src="googleicon.png" alt="구글 아이콘" />
+          <StyledButtonImg src="icon/googleicon.png" alt="구글 아이콘" />
           Sign in with Google
         </StyledButton>
       </StyledContent>
