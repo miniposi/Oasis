@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import styled from "styled-components";
+import { PetCategoryProps, PetCategoryData } from "@/data/ShopData";
 
 interface TypeProps {
   animal: "dog" | "cat";
-  category: "사료" | "간식" | "용품";
+  category: "food" | "snack" | "supplies";
 }
 
 interface ButtonProps {
@@ -12,7 +14,13 @@ interface ButtonProps {
 
 export default function ShopPage() {
   const [type, setType] = useState<TypeProps["animal"]>("dog");
-  const [category, setCategory] = useState<TypeProps["category"]>("사료");
+  const [category, setCategory] = useState<TypeProps["category"]>("food");
+  const router = useRouter();
+
+  // @TODO 주소 변경
+  const handleNavigation = (dst: string) => {
+    router.push(`/${dst}`);
+  };
 
   const handleSelect = (type: TypeProps["animal"]) => {
     setType(type);
@@ -22,9 +30,35 @@ export default function ShopPage() {
     setCategory(category);
   };
 
+  const getCategoryMap = (
+    type: TypeProps["animal"],
+    category: TypeProps["category"]
+  ): PetCategoryProps[] => {
+    return PetCategoryData[type][category];
+  };
+
   return (
     <StyledWrapper>
-      <StyledHeader>오아시스 상점</StyledHeader>
+      <StyledHeader>
+        <StyledHeaderImg
+          src="icon/backicon.png"
+          alt="돌아가기 아이콘"
+          onClick={() => handleNavigation("")}
+        />
+        오아시스 상점
+        <StyledInnerHeader>
+          <StyledHeaderImg
+            src="icon/searchicon.png"
+            alt="검색 아이콘"
+            onClick={() => handleNavigation("")}
+          />
+          <StyledHeaderImg
+            src="icon/homeicon.png"
+            alt="홈 아이콘"
+            onClick={() => handleNavigation("")}
+          />
+        </StyledInnerHeader>
+      </StyledHeader>
       <StyledUnderWrapper>
         <StyledTypeButton
           $isActive={type === "dog" ? true : false}
@@ -41,29 +75,31 @@ export default function ShopPage() {
       </StyledUnderWrapper>
       <StyledFilterWrapper>
         <StyledCtgButton
-          $isActive={category === "사료" ? true : false}
-          onClick={() => handleCategory("사료")}
+          $isActive={category === "food" ? true : false}
+          onClick={() => handleCategory("food")}
         >
           사료
         </StyledCtgButton>
         <StyledCtgButton
-          $isActive={category === "간식" ? true : false}
-          onClick={() => handleCategory("간식")}
+          $isActive={category === "snack" ? true : false}
+          onClick={() => handleCategory("snack")}
         >
           간식
         </StyledCtgButton>
         <StyledCtgButton
-          $isActive={category === "용품" ? true : false}
-          onClick={() => handleCategory("용품")}
+          $isActive={category === "supplies" ? true : false}
+          onClick={() => handleCategory("supplies")}
         >
           용품
         </StyledCtgButton>
       </StyledFilterWrapper>
       <StyledContentWrapper>
-        <StyledContent>
-          <StyledImg src="shop/all.png" alt="전체보기" />
-          전체보기
-        </StyledContent>
+        {getCategoryMap(type, category).map((item: any) => (
+          <StyledContent key={item.name} onClick={() => handleNavigation("")}>
+            <StyledImg src={item.imageUrl} alt={item.name} />
+            {item.name}
+          </StyledContent>
+        ))}
       </StyledContentWrapper>
     </StyledWrapper>
   );
@@ -73,16 +109,31 @@ const StyledWrapper = styled.div``;
 
 const StyledHeader = styled.header`
   display: flex;
-  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  gap: 30vw;
   width: 100%;
   height: 100px;
   text-align: center;
   font-size: 35px;
 `;
 
+const StyledInnerHeader = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+`;
+
+const StyledHeaderImg = styled.img`
+  width: 40px;
+  height: 40px;
+`;
+
 const StyledUnderWrapper = styled.div`
   display: flex;
+  width: 78vw;
+  margin: auto;
 `;
 
 const StyledTypeButton = styled.button<ButtonProps>`
@@ -118,10 +169,10 @@ const StyledCtgButton = styled.button<ButtonProps>`
 `;
 
 const StyledContentWrapper = styled.div`
-  width: 1602px;
+  width: 1400px;
   margin: 30px auto;
   display: grid;
-  grid-template-columns: repeat(9, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   grid-row-gap: 30px;
 `;
 
