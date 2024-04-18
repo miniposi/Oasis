@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { PetCategoryProps, PetCategoryData } from "@/data/ShopData";
+import Header from "@/components/Header";
 
 interface TypeProps {
   animal: "dog" | "cat";
@@ -38,27 +39,8 @@ export default function ShopPage() {
   };
 
   return (
-    <StyledWrapper>
-      <StyledHeader>
-        <StyledHeaderImg
-          src="icon/backicon.png"
-          alt="돌아가기 아이콘"
-          onClick={() => handleNavigation("")}
-        />
-        오아시스 상점
-        <StyledInnerHeader>
-          <StyledHeaderImg
-            src="icon/searchicon.png"
-            alt="검색 아이콘"
-            onClick={() => handleNavigation("")}
-          />
-          <StyledHeaderImg
-            src="icon/homeicon.png"
-            alt="홈 아이콘"
-            onClick={() => handleNavigation("")}
-          />
-        </StyledInnerHeader>
-      </StyledHeader>
+    <>
+      <Header>오아시스 상점</Header>
       <StyledUnderWrapper>
         <StyledTypeButton
           $isActive={type === "dog" ? true : false}
@@ -95,40 +77,18 @@ export default function ShopPage() {
       </StyledFilterWrapper>
       <StyledContentWrapper>
         {getCategoryMap(type, category).map((item: any) => (
-          <StyledContent key={item.name} onClick={() => handleNavigation("")}>
+          <StyledContent
+            key={item.name}
+            onClick={() => handleNavigation(`shopDetail?category=${item.name}`)}
+          >
             <StyledImg src={item.imageUrl} alt={item.name} />
             {item.name}
           </StyledContent>
         ))}
       </StyledContentWrapper>
-    </StyledWrapper>
+    </>
   );
 }
-
-const StyledWrapper = styled.div``;
-
-const StyledHeader = styled.header`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 30vw;
-  width: 100%;
-  height: 100px;
-  text-align: center;
-  font-size: 35px;
-`;
-
-const StyledInnerHeader = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-`;
-
-const StyledHeaderImg = styled.img`
-  width: 40px;
-  height: 40px;
-`;
 
 const StyledUnderWrapper = styled.div`
   display: flex;
