@@ -101,7 +101,7 @@ const StyledHeader = styled.div`
   color: #fff;
   text-align: center;
   font-size: 48px;
-  margin: 60px auto;
+  margin: auto;
 `;
 
 const StyledInnerWrapper = styled.div`
