@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useRouter } from "next/router";
 import styled from "styled-components";
 import { PetCategoryProps, PetCategoryData } from "@/data/ShopData";
 import Header from "@/components/Header";
+import useNavigation from "@/hooks/useNavigation";
 
 interface TypeProps {
   animal: "dog" | "cat";
@@ -16,12 +16,7 @@ interface ButtonProps {
 export default function ShopPage() {
   const [type, setType] = useState<TypeProps["animal"]>("dog");
   const [category, setCategory] = useState<TypeProps["category"]>("food");
-  const router = useRouter();
-
-  // @TODO 주소 변경
-  const handleNavigation = (dst: string) => {
-    router.push(`/${dst}`);
-  };
+  const handleNavigation = useNavigation();
 
   const handleSelect = (type: TypeProps["animal"]) => {
     setType(type);
