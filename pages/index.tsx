@@ -1,12 +1,8 @@
 import styled from "styled-components";
-import { useRouter } from "next/router";
+import useNavigation from "@/hooks/useNavigation";
 
 export default function Home() {
-  const router = useRouter();
-
-  const handleClick = () => {
-    router.push("/login");
-  };
+  const handleNavigation = useNavigation();
 
   return (
     <StyledWrapper>
@@ -16,7 +12,7 @@ export default function Home() {
         <StyledContent>
           <StyledSubtitle>모든 반려동물 용품 정보를 한번에!</StyledSubtitle>
           <StyledTitle>펫 리뷰 오아시스</StyledTitle>
-          <StyledButton type="button" onClick={handleClick}>
+          <StyledButton type="button" onClick={() => handleNavigation("login")}>
             지금 시작하기
           </StyledButton>
         </StyledContent>
