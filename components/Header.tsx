@@ -9,12 +9,16 @@ export default function Header({ children }: any) {
     router.push(`/${dst}`);
   };
 
+  const handleBack = () => {
+    window.history.back();
+  };
+
   return (
     <StyledHeader>
       <StyledHeaderImg
         src="icon/backicon.png"
         alt="돌아가기 아이콘"
-        onClick={() => handleNavigation("custom")}
+        onClick={() => handleBack()}
       />
       {children}
       <StyledInnerHeader>
