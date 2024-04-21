@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import StarRating from "@/components/StarRating";
 import useNavigation from "@/hooks/useNavigation";
 
-export default function ShopDetail() {
+export default function ShopDetailPage() {
   const params = useSearchParams();
   const handleNavigation = useNavigation();
 
