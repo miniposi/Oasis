@@ -2,7 +2,7 @@ interface StarRatingProps {
   rating: number; // 별점
 }
 
-export const StarRating = ({ rating }: StarRatingProps) => {
+function StarRating({ rating }: StarRatingProps) {
   const totalStars = 5;
   const filledStars = Math.floor(rating);
   const remainingWidth = (rating - filledStars) * 100;
@@ -16,7 +16,7 @@ export const StarRating = ({ rating }: StarRatingProps) => {
         <svg
           key={index}
           xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
+          viewBox="0 -3 24 24"
           width="24"
           height="24"
           fill={index < filledStars ? filledColor : emptyColor}
@@ -54,4 +54,6 @@ export const StarRating = ({ rating }: StarRatingProps) => {
       ))}
     </div>
   );
-};
+}
+
+export default StarRating;
