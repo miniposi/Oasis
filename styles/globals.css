@@ -80,6 +80,7 @@
   font-family: "BagelFatOne-Regular";
   white-space: pre-wrap;
   caret-color: transparent;
+  object-fit: contain;
 }
 
 @font-face {
@@ -106,4 +107,23 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #678fae;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d9d9d9; /* 스크롤바 색상 */
+  border-radius: 6px; /* 스크롤바의 모서리 반경 */
+}
+
+/* 스크롤바 마우스 오버 시 색상 */
+::-webkit-scrollbar-thumb:hover {
+  background: #c9c9c9;
 }
