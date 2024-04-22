@@ -16,7 +16,7 @@ export default function ProductReviewPage() {
             제품명제품명제품명제품명제품명제품명제품명제품명
             제품명제품명제품명제품명제품명제품명제품명제품명제품명
           </StyledName>
-          <StyledRatingWrapper style={{ gridArea: "rate" }}>
+          <StyledRatingWrapper>
             4.5
             <StarRating rating={4.5} />
           </StyledRatingWrapper>
