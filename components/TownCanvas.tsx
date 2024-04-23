@@ -6,19 +6,25 @@ interface CanvasProps {
   height: number;
 }
 
-const HomeCanvas: React.FC<CanvasProps> = ({ width, height }) => {
+const TownCanvas: React.FC<CanvasProps> = ({ width, height }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [character, setCharacter] = useState({ x: 400, y: 560 });
-  const [scrapShowModal, setScrapShowModal] = useState(false);
-  const [outShowModal, setOutShowModal] = useState(false);
+  const [character, setCharacter] = useState({ x: 920, y: 200 });
+  const [shopShowModal, setShopShowModal] = useState(false);
+  const [homeShowModal, setHomeShowModal] = useState(false);
+  const [comShowModal, setComShowModal] = useState(false);
 
-  const handleOut = () => {
-    setOutShowModal(true);
+  const handleHome = () => {
+    setHomeShowModal(true);
   };
 
-  const handleScrap = () => {
-    setScrapShowModal(true);
+  const handleShop = () => {
+    setShopShowModal(true);
   };
+
+  const handleCom = () => {
+    setComShowModal(true);
+  };
+
   useEffect(() => {
     const canvasCur = canvasRef.current;
     if (!canvasCur) return;
@@ -27,7 +33,7 @@ const HomeCanvas: React.FC<CanvasProps> = ({ width, height }) => {
 
     const drawBackground = () => {
       const bgImage = new Image();
-      bgImage.src = "home.png";
+      bgImage.src = "town.png";
       bgImage.onload = () => {
         context?.drawImage(bgImage, 0, 0, width, height);
       };
@@ -37,12 +43,18 @@ const HomeCanvas: React.FC<CanvasProps> = ({ width, height }) => {
       const characterImage = new Image();
       characterImage.src = "shop/adultcat.png";
       characterImage.onload = () => {
-        if (character.x <= 1000 && character.x >= 920 && character.y === 200) {
-          handleOut();
+        console.log(character.x + " " + character.y);
+
+        if (character.x <= 1580 && character.x >= 1520 && character.y === 120) {
+          handleHome();
         }
 
-        if (character.x <= 440 && character.x >= 320 && character.y === 200) {
-          handleScrap();
+        if (character.x <= 940 && character.x >= 900 && character.y === 120) {
+          handleShop();
+        }
+
+        if (character.x <= 580 && character.x >= 440 && character.y === 500) {
+          handleCom();
         }
 
         context?.drawImage(characterImage, character.x, character.y, 100, 100);
@@ -67,8 +79,8 @@ const HomeCanvas: React.FC<CanvasProps> = ({ width, height }) => {
       newCharacter.x += 20;
     }
 
-    newCharacter.x = Math.max(40, Math.min(newCharacter.x, 1080));
-    newCharacter.y = Math.max(200, Math.min(newCharacter.y, height - 100));
+    newCharacter.x = Math.max(0, Math.min(newCharacter.x, 1780));
+    newCharacter.y = Math.max(120, Math.min(newCharacter.y, height - 100));
 
     setCharacter(newCharacter);
   };
@@ -76,16 +88,22 @@ const HomeCanvas: React.FC<CanvasProps> = ({ width, height }) => {
   return (
     <>
       <CanvasModal
-        text="서랍을 여시겠습니까?"
-        dsc="myScrap"
-        showModal={scrapShowModal}
-        setShowModal={setScrapShowModal}
+        text="상점으로 이동하시겠습니까?"
+        dsc="shop"
+        showModal={shopShowModal}
+        setShowModal={setShopShowModal}
       />
       <CanvasModal
-        text="나가시겠습니까?"
-        dsc="town"
-        showModal={outShowModal}
-        setShowModal={setOutShowModal}
+        text="집으로 이동하시겠습니까?"
+        dsc="home"
+        showModal={homeShowModal}
+        setShowModal={setHomeShowModal}
+      />
+      <CanvasModal
+        text="커뮤니티로 이동하시겠습니까?"
+        dsc="community"
+        showModal={comShowModal}
+        setShowModal={setComShowModal}
       />
       <canvas
         ref={canvasRef}
@@ -98,4 +116,4 @@ const HomeCanvas: React.FC<CanvasProps> = ({ width, height }) => {
   );
 };
 
-export default HomeCanvas;
+export default TownCanvas;
