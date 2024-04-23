@@ -43,8 +43,6 @@ const TownCanvas: React.FC<CanvasProps> = ({ width, height }) => {
       const characterImage = new Image();
       characterImage.src = "shop/adultcat.png";
       characterImage.onload = () => {
-        console.log(character.x + " " + character.y);
-
         if (character.x <= 1580 && character.x >= 1520 && character.y === 120) {
           handleHome();
         }
