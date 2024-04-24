@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import StarRating from "@/components/StarRating";
 import useNavigation from "@/hooks/useNavigation";
 
-export default function ProductReviewPage() {
+function ProductReviewPage() {
   const handleNavigation = useNavigation();
 
   return (
@@ -92,6 +92,8 @@ export default function ProductReviewPage() {
     </>
   );
 }
+
+export default ProductReviewPage;
 
 const StyledWrapper = styled.div`
   display: flex;

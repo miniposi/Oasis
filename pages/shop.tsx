@@ -13,7 +13,7 @@ interface ButtonProps {
   $isActive: boolean;
 }
 
-export default function ShopPage() {
+function ShopPage() {
   const [type, setType] = useState<TypeProps["animal"]>("dog");
   const [category, setCategory] = useState<TypeProps["category"]>("food");
   const handleNavigation = useNavigation();
@@ -84,6 +84,8 @@ export default function ShopPage() {
     </>
   );
 }
+
+export default ShopPage;
 
 const StyledUnderWrapper = styled.div`
   display: flex;

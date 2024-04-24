@@ -4,7 +4,7 @@ import RecordStarRating from "@/components/RecordStarRating";
 import useNavigation from "@/hooks/useNavigation";
 import { useCallback, useRef, useState } from "react";
 
-export default function ReviewPage() {
+function ReviewPage() {
   const [detailReview, setDetailReview] = useState("");
   const [imgFile, setImgFile] = useState<File>();
   const [imgPath, setImgPath] = useState("icon/uploadicon.png");
@@ -68,6 +68,8 @@ export default function ReviewPage() {
     </>
   );
 }
+
+export default ReviewPage;
 
 const StyledWrapper = styled.div`
   display: flex;

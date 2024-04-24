@@ -10,7 +10,7 @@ interface AnimalTypeProps {
   type: "cat" | "dog";
 }
 
-export default function CustomPage() {
+function CustomPage() {
   const [type, setType] = useState<AnimalTypeProps["type"]>("cat");
   const [name, setName] = useState<string>("");
   const [species, setSpecies] = useState<string>("말티즈");
@@ -85,6 +85,8 @@ export default function CustomPage() {
     </StyledWrapper>
   );
 }
+
+export default CustomPage;
 
 const StyledWrapper = styled.div`
   display: flex;

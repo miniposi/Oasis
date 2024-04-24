@@ -10,7 +10,7 @@ interface ButtonProps {
   $design: "fill" | "unfill";
 }
 
-export default function ProductPage() {
+function ProductPage() {
   const handleNavigation = useNavigation();
   const [showModal, setShowModal] = useState(false);
 
@@ -65,6 +65,8 @@ export default function ProductPage() {
     </>
   );
 }
+
+export default ProductPage;
 
 const StyledWrapper = styled.div`
   width: 1400px;

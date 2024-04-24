@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Header from "@/components/Header";
 
-export default function ProductDetailPage() {
+function ProductDetailPage() {
   return (
     <StyledWrapper>
       <Header>제품명</Header>
@@ -9,6 +9,8 @@ export default function ProductDetailPage() {
     </StyledWrapper>
   );
 }
+
+export default ProductDetailPage;
 
 const StyledWrapper = styled.div`
   display: flex;

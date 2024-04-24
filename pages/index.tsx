@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import useNavigation from "@/hooks/useNavigation";
 
-export default function Home() {
+function Home() {
   const handleNavigation = useNavigation();
 
   return (
@@ -21,19 +21,22 @@ export default function Home() {
   );
 }
 
+export default Home;
+
 const StyledWrapper = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: center;
   color: #678fae;
+  max-height: 100vh;
 `;
 
 const StyledImg = styled.img`
   width: 380px;
   object-fit: contain;
   position: absolute;
-  top: 190px;
-  left: 355px;
+  top: 140px;
+  left: 270px;
   z-index: 1;
 `;
 

@@ -2,7 +2,7 @@ import Header from "@/components/Header";
 import StarRating from "@/components/StarRating";
 import styled from "styled-components";
 
-export default function MyScrapPage() {
+function MyScrapPage() {
   return (
     <>
       <Header>포시의 서랍</Header>
@@ -29,6 +29,8 @@ export default function MyScrapPage() {
     </>
   );
 }
+
+export default MyScrapPage;
 
 const StyledWrapper = styled.div`
   width: 1500px;

@@ -3,10 +3,23 @@ import styled from "styled-components";
 import Header from "@/components/Header";
 import StarRating from "@/components/StarRating";
 import useNavigation from "@/hooks/useNavigation";
+import { useEffect } from "react";
+import getProduct from "./api/getProduct";
+import useAsync from "@/hooks/useAsync";
 
-export default function ShopDetailPage() {
+function ShopDetailPage() {
   const params = useSearchParams();
   const handleNavigation = useNavigation();
+  const { execute } = useAsync(getProduct);
+
+  const fetch = async () => {
+    const response: any = await execute();
+    console.log(response);
+  };
+
+  useEffect(() => {
+    fetch();
+  }, []);
 
   return (
     <>
@@ -31,6 +44,8 @@ export default function ShopDetailPage() {
     </>
   );
 }
+
+export default ShopDetailPage;
 
 const StyledWrapper = styled.div`
   width: 1450px;
