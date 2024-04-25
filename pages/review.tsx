@@ -1,17 +1,33 @@
+import { useSearchParams } from "next/navigation";
 import styled from "styled-components";
 import Header from "@/components/Header";
 import RecordStarRating from "@/components/RecordStarRating";
 import useNavigation from "@/hooks/useNavigation";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import sendReview from "./api/sendReview";
+import getProduct from "./api/getProduct";
 
 function ReviewPage() {
+  const params = useSearchParams();
   const [detailReview, setDetailReview] = useState("");
   const [imgFile, setImgFile] = useState<File>();
   const [imgPath, setImgPath] = useState("icon/uploadicon.png");
   const imgRef = useRef<HTMLInputElement>(null);
   const [starRate, setStarRate] = useState(0);
+  const [productInfo, setProductInfo] = useState<any>({});
 
-  const handleSubmit = () => {};
+  const Props = {
+    productId: params.get("id"),
+    content: detailReview,
+    score: starRate,
+    photos: imgFile,
+  };
+
+  const handleSubmit = async () => {
+    console.log(imgFile);
+    const response = await sendReview(Props);
+    console.log(response);
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDetailReview(event.target.value);
@@ -31,19 +47,26 @@ function ReviewPage() {
     }
   };
 
+  const fetch = async () => {
+    const response: any = await getProduct(params.get("id"));
+    setProductInfo(response.data.product);
+  };
+
+  useEffect(() => {
+    fetch();
+  }, []);
+
   return (
     <>
       <Header>후기</Header>
       <StyledWrapper>
         <StyledLeftWrapper>
-          <StyledImg src="cloud.png" alt="제품 사진" />
+          <StyledImg src={productInfo.thumbnailUrl} alt="제품 사진" />
           <StyledRatingWrapper>
             평점
             <RecordStarRating starRate={starRate} setStarRate={setStarRate} />
           </StyledRatingWrapper>
-          <StyledButton onClick={() => handleSubmit}>
-            후기 작성 완료
-          </StyledButton>
+          <StyledButton onClick={handleSubmit}>후기 작성 완료</StyledButton>
         </StyledLeftWrapper>
         <StyledRightWrapper>
           상세 리뷰
