@@ -1,6 +1,11 @@
 import styled from "styled-components";
+import { signIn, useSession } from "next-auth/react";
 
-export default function LoginPage() {
+function LoginPage() {
+  const handleLogin = async () => {
+    await signIn("google");
+  };
+
   return (
     <StyledWrapper>
       <StyledImg src="logindog.png" alt="구름 탄 강아지 이미지" />
@@ -12,7 +17,11 @@ export default function LoginPage() {
           <StyledButtonImg src="icon/kakaoicon.png" alt="카카오톡 아이콘" />
           Sign in with Kakao
         </StyledButton>
-        <StyledButton type="button" style={{ backgroundColor: "#FFF" }}>
+        <StyledButton
+          type="button"
+          style={{ backgroundColor: "#FFF" }}
+          onClick={() => signIn("google", { callbackUrl: "/custom" })}
+        >
           <StyledButtonImg src="icon/googleicon.png" alt="구글 아이콘" />
           Sign in with Google
         </StyledButton>
@@ -21,10 +30,13 @@ export default function LoginPage() {
   );
 }
 
+export default LoginPage;
+
 const StyledWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 300px;
+  max-height: 100vh;
 `;
 
 const StyledContent = styled.div`
