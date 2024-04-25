@@ -23,14 +23,9 @@ export default function Header({ children }: any) {
       {children}
       <StyledInnerHeader>
         <StyledHeaderImg
-          src="icon/searchicon.png"
-          alt="검색 아이콘"
-          onClick={() => handleNavigation("")}
-        />
-        <StyledHeaderImg
           src="icon/homeicon.png"
           alt="홈 아이콘"
-          onClick={() => handleNavigation("")}
+          onClick={() => handleNavigation("home")}
         />
       </StyledInnerHeader>
     </StyledHeader>
