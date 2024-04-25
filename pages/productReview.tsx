@@ -1,92 +1,70 @@
+import { useSearchParams } from "next/navigation";
 import styled from "styled-components";
 import Header from "@/components/Header";
 import StarRating from "@/components/StarRating";
 import useNavigation from "@/hooks/useNavigation";
+import getReview from "./api/getReview";
+import getProduct from "./api/getProduct";
+import { useEffect, useState } from "react";
 
 function ProductReviewPage() {
   const handleNavigation = useNavigation();
+  const params = useSearchParams();
+  const [productInfo, setProductInfo] = useState<any>({});
+  const [reviews, setReviews] = useState<any>([]);
+
+  const fetch = async () => {
+    const response: any = await getProduct(params.get("id"));
+    setProductInfo(response.data.product);
+    const result: any = await getReview(params.get("id"));
+    setReviews(result.data);
+    console.log(result.data);
+  };
+
+  useEffect(() => {
+    fetch();
+  }, []);
 
   return (
     <>
       <Header>후기</Header>
       <StyledWrapper>
         <StyledLeftWrapper>
-          <StyledImg src="cloud.png" alt="제품 사진" />
-          <StyledName>
-            제품명제품명제품명제품명제품명제품명제품명제품명
-            제품명제품명제품명제품명제품명제품명제품명제품명제품명
-          </StyledName>
+          <StyledImg src={productInfo.thumbnailUrl} alt="제품 사진" />
+          <StyledName>{productInfo.name}</StyledName>
           <StyledRatingWrapper>
-            4.5
-            <StarRating rating={4.5} />
+            {productInfo.avgScore}
+            <StarRating rating={productInfo.avgScore} />
           </StyledRatingWrapper>
           <StyledButton
-            onClick={() => handleNavigation("review?product=제품명")}
+            onClick={() => handleNavigation(`review?id=${params.get("id")}`)}
           >
             후기 작성하기
           </StyledButton>
         </StyledLeftWrapper>
         <StyledRightWrapper>
-          <StyledReviewContent>
-            <StyledReviewer>
-              <StyledProfile src="cloud.png" alt="프로필 아이콘" />
-              <StyledReviewerName>포시</StyledReviewerName>
-              <StarRating rating={3.0} />
-            </StyledReviewer>
-            <StyledReviewImgs>
-              <StyledReviewImg src="cloud.png" alt="리뷰 이미지" />
-              <StyledReviewImg src="cloud.png" alt="리뷰 이미지" />
-              <StyledReviewImg src="cloud.png" alt="리뷰 이미지" />
-              <StyledReviewImg src="cloud.png" alt="리뷰 이미지" />
-              <StyledReviewImg src="cloud.png" alt="리뷰 이미지" />
-              <StyledReviewImg src="cloud.png" alt="리뷰 이미지" />
-              <StyledReviewImg src="cloud.png" alt="리뷰 이미지" />
-              <StyledReviewImg src="cloud.png" alt="리뷰 이미지" />
-            </StyledReviewImgs>
-            <StyledReview>
-              후기~~~~~~~후기~~~~~~~후기~~~~~~~후기~~~~~~~후기~~~~~~~후기~~~~~~~후기~~~~~~~후기~~~~~~~후기~~~~~~~
-            </StyledReview>
-          </StyledReviewContent>
-          <StyledReviewContent>
-            <StyledReviewer>
-              <StyledProfile src="cloud.png" alt="프로필 아이콘" />
-              <StyledReviewerName>포시</StyledReviewerName>
-              <StarRating rating={3.0} />
-            </StyledReviewer>
-            <StyledReviewImgs>
-              <StyledReviewImg src="cloud.png" alt="리뷰 이미지" />
-              <StyledReviewImg src="cloud.png" alt="리뷰 이미지" />
-              <StyledReviewImg src="cloud.png" alt="리뷰 이미지" />
-              <StyledReviewImg src="cloud.png" alt="리뷰 이미지" />
-              <StyledReviewImg src="cloud.png" alt="리뷰 이미지" />
-              <StyledReviewImg src="cloud.png" alt="리뷰 이미지" />
-              <StyledReviewImg src="cloud.png" alt="리뷰 이미지" />
-              <StyledReviewImg src="cloud.png" alt="리뷰 이미지" />
-            </StyledReviewImgs>
-            <StyledReview>
-              후기~~~~~~~후기~~~~~~~후기~~~~~~~후기~~~~~~~후기~~~~~~~후기~~~~~~~후기~~~~~~~후기~~~~~~~후기~~~~~~~
-            </StyledReview>
-          </StyledReviewContent>
-          <StyledReviewContent>
-            <StyledReviewer>
-              <StyledProfile src="cloud.png" alt="프로필 아이콘" />
-              <StyledReviewerName>포시</StyledReviewerName>
-              <StarRating rating={3.0} />
-            </StyledReviewer>
-            <StyledReviewImgs>
-              <StyledReviewImg src="cloud.png" alt="리뷰 이미지" />
-              <StyledReviewImg src="cloud.png" alt="리뷰 이미지" />
-              <StyledReviewImg src="cloud.png" alt="리뷰 이미지" />
-              <StyledReviewImg src="cloud.png" alt="리뷰 이미지" />
-              <StyledReviewImg src="cloud.png" alt="리뷰 이미지" />
-              <StyledReviewImg src="cloud.png" alt="리뷰 이미지" />
-              <StyledReviewImg src="cloud.png" alt="리뷰 이미지" />
-              <StyledReviewImg src="cloud.png" alt="리뷰 이미지" />
-            </StyledReviewImgs>
-            <StyledReview>
-              후기~~~~~~~후기~~~~~~~후기~~~~~~~후기~~~~~~~후기~~~~~~~후기~~~~~~~후기~~~~~~~후기~~~~~~~후기~~~~~~~
-            </StyledReview>
-          </StyledReviewContent>
+          {reviews.map((item: any) => (
+            <StyledReviewContent key={item.id}>
+              <StyledReviewer>
+                <StyledProfile
+                  src={`http://14.39.203.129:13000/${item.User.profilePic}`}
+                  alt="프로필 아이콘"
+                />
+                <StyledReviewerName>{item.User.name}</StyledReviewerName>
+                <StarRating rating={item.score} />
+              </StyledReviewer>
+              <StyledReviewImgs>
+                {item.ReviewPhotoOrders.map((img: any) => (
+                  <StyledReviewImg
+                    key={img.sequence}
+                    src={`http://14.39.203.129:13000/${img.ReviewPhoto.path}`}
+                    alt="리뷰 이미지"
+                  />
+                ))}
+              </StyledReviewImgs>
+              <StyledReview>{item.content}</StyledReview>
+            </StyledReviewContent>
+          ))}
         </StyledRightWrapper>
       </StyledWrapper>
     </>
@@ -189,7 +167,7 @@ const StyledReviewerName = styled.p`
 
 const StyledReviewImgs = styled.div`
   width: 1030px;
-  height: 200px;
+  max-height: 200px;
   display: flex;
   gap: 10px;
   overflow-x: scroll;
