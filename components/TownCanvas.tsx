@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import CanvasModal from "./CanvasModal";
+import getUser from "@/pages/api/getUser";
 
 interface CanvasProps {
   width: number;
@@ -12,6 +13,16 @@ const TownCanvas: React.FC<CanvasProps> = ({ width, height }) => {
   const [shopShowModal, setShopShowModal] = useState(false);
   const [homeShowModal, setHomeShowModal] = useState(false);
   const [comShowModal, setComShowModal] = useState(false);
+  const [profilePic, setProfilePic] = useState("");
+
+  const fetch = async () => {
+    const result: any = await getUser();
+    setProfilePic(`http://14.39.203.129:13000/${result.data.user.profilePic}`);
+  };
+
+  useEffect(() => {
+    fetch();
+  }, []);
 
   const handleHome = () => {
     setHomeShowModal(true);
@@ -35,19 +46,21 @@ const TownCanvas: React.FC<CanvasProps> = ({ width, height }) => {
       const bgImage = new Image();
       bgImage.src = "town.png";
       bgImage.onload = () => {
+        bgImage.width = width;
+        bgImage.height = height;
         context?.drawImage(bgImage, 0, 0, width, height);
       };
     };
 
     const drawCharacter = () => {
       const characterImage = new Image();
-      characterImage.src = "shop/adultcat.png";
+      characterImage.src = profilePic;
       characterImage.onload = () => {
-        if (character.x <= 1580 && character.x >= 1520 && character.y === 120) {
+        if (character.x <= 1680 && character.x >= 1620 && character.y === 80) {
           handleHome();
         }
 
-        if (character.x <= 940 && character.x >= 900 && character.y === 120) {
+        if (character.x <= 1040 && character.x >= 960 && character.y === 80) {
           handleShop();
         }
 
@@ -78,7 +91,7 @@ const TownCanvas: React.FC<CanvasProps> = ({ width, height }) => {
     }
 
     newCharacter.x = Math.max(0, Math.min(newCharacter.x, 1780));
-    newCharacter.y = Math.max(120, Math.min(newCharacter.y, height - 100));
+    newCharacter.y = Math.max(80, Math.min(newCharacter.y, height - 100));
 
     setCharacter(newCharacter);
   };

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import CanvasModal from "./CanvasModal";
+import getUser from "@/pages/api/getUser";
 
 interface CanvasProps {
   width: number;
@@ -11,6 +12,16 @@ const HomeCanvas: React.FC<CanvasProps> = ({ width, height }) => {
   const [character, setCharacter] = useState({ x: 400, y: 560 });
   const [scrapShowModal, setScrapShowModal] = useState(false);
   const [outShowModal, setOutShowModal] = useState(false);
+  const [profilePic, setProfilePic] = useState("");
+
+  const fetch = async () => {
+    const result: any = await getUser();
+    setProfilePic(`http://14.39.203.129:13000/${result.data.user.profilePic}`);
+  };
+
+  useEffect(() => {
+    fetch();
+  }, []);
 
   const handleOut = () => {
     setOutShowModal(true);
@@ -35,7 +46,7 @@ const HomeCanvas: React.FC<CanvasProps> = ({ width, height }) => {
 
     const drawCharacter = () => {
       const characterImage = new Image();
-      characterImage.src = "shop/adultcat.png";
+      characterImage.src = profilePic;
       characterImage.onload = () => {
         if (character.x <= 1000 && character.x >= 920 && character.y === 200) {
           handleOut();
