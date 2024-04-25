@@ -8,9 +8,9 @@ function Modal({ showModal, setShowModal }: any) {
     showModal && (
       <StyledWrapper>
         <p>
-          00 집사님! 상품이 <br></br> 내 서랍으로 들어갔어요
+          집사님! 상품이 <br></br> 내 서랍으로 들어갔어요
         </p>
-        <StyledButton onClick={() => handleNavigation("myPage")}>
+        <StyledButton onClick={() => handleNavigation("home")}>
           보러가기
         </StyledButton>
       </StyledWrapper>
