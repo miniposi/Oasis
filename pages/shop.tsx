@@ -74,7 +74,11 @@ function ShopPage() {
         {getCategoryMap(type, category).map((item: any) => (
           <StyledContent
             key={item.name}
-            onClick={() => handleNavigation(`shopDetail?category=${item.name}`)}
+            onClick={() =>
+              handleNavigation(
+                `shopDetail?pcg=${type}&scg=${category}&dcg=${item.info}&ko=${item.name}`
+              )
+            }
           >
             <StyledImg src={item.imageUrl} alt={item.name} />
             {item.name}
