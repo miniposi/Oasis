@@ -4,7 +4,7 @@ interface StarRatingProps {
 
 function StarRating({ rating }: StarRatingProps) {
   const totalStars = 5;
-  const filledStars = Math.floor(rating);
+  const filledStars = rating === 0 ? -1 : Math.floor(rating);
   const remainingWidth = (rating - filledStars) * 100;
 
   const filledColor = "#FFE500";
@@ -19,7 +19,6 @@ function StarRating({ rating }: StarRatingProps) {
           viewBox="0 -3 24 24"
           width="24"
           height="24"
-          fill={index < filledStars ? filledColor : emptyColor}
           style={{ overflow: "visible", marginRight: "2px" }}
         >
           <path
@@ -38,11 +37,7 @@ function StarRating({ rating }: StarRatingProps) {
           />
           <path
             d="M12.5 0L15.3064 8.63729H24.3882L17.0409 13.9754L19.8473 22.6127L12.5 17.2746L5.15268 22.6127L7.95911 13.9754L0.611794 8.63729H9.69357L12.5 0Z"
-            fill={
-              index >= filledStars && remainingWidth > 0
-                ? emptyColor
-                : filledColor
-            }
+            fill={index >= filledStars ? emptyColor : filledColor}
             style={{
               clipPath:
                 index === filledStars && remainingWidth > 0
