@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { CustomCatData, CustomDogData } from "@/data/CustomData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import postLogin from "./api/postLogin";
+import { useSession } from "next-auth/react";
+import useNavigation from "@/hooks/useNavigation";
 
 interface ButtonProps {
   $isActive: boolean;
@@ -11,10 +14,12 @@ interface AnimalTypeProps {
 }
 
 function CustomPage() {
-  const [type, setType] = useState<AnimalTypeProps["type"]>("cat");
+  const [type, setType] = useState<AnimalTypeProps["type"]>("dog");
   const [name, setName] = useState<string>("");
   const [species, setSpecies] = useState<string>("말티즈");
   const [selectedID, setSelectedID] = useState(1);
+  const [accessToken, setAccessToken] = useState<string | null>("");
+  const handleNavigation = useNavigation();
 
   const handleAnimalType = (type: "cat" | "dog") => {
     setType(type);
@@ -36,6 +41,21 @@ function CustomPage() {
     setSpecies(item.name);
     setSelectedID(item.id);
   };
+
+  const fetch = async () => {
+    const response = await postLogin(
+      "ya29.a0Ad52N38zUxfxX9pnIlcb9AOzFXygjnCZJrr4BaO5yl8C3MQqs-pYwt2WQlZAqb3tRzC1rNuKIJ4pnPYaEWVfqaX0klh29RANeV1_vE4Fgzk4KWi-0Ozjg5YflxOMaTekm52Zh9duHTBlqEBIYU0Tj6TFvG4vFYu2Gj4aCgYKAUASARISFQHGX2MiXSplrNI5T4l3ERHzjPU1AQ0170"
+    );
+    console.log(response);
+  };
+
+  useEffect(() => {
+    fetch();
+  }, []);
+
+  const session = useSession();
+
+  console.log(session);
 
   return (
     <StyledWrapper>
@@ -79,7 +99,12 @@ function CustomPage() {
             onChange={(e) => setName(e.target.value)}
           />
           <StyledSelectedSpecies>{species}</StyledSelectedSpecies>
-          <StyledSubmitButton type="button">선택 완료</StyledSubmitButton>
+          <StyledSubmitButton
+            type="button"
+            onClick={() => handleNavigation("shop")}
+          >
+            선택 완료
+          </StyledSubmitButton>
         </StyledContent>
       </StyledInnerWrapper>
     </StyledWrapper>
