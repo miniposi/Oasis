@@ -1,57 +1,79 @@
+import { useSearchParams } from "next/navigation";
 import styled from "styled-components";
 import Header from "@/components/Header";
 import StarRating from "@/components/StarRating";
 import HorizontalLine from "@/components/HorizontalLine";
 import useNavigation from "@/hooks/useNavigation";
 import Modal from "@/components/Modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import getProduct from "./api/getProduct";
+import postScrap from "./api/postScrap";
 
 interface ButtonProps {
   $design: "fill" | "unfill";
 }
 
 function ProductPage() {
+  const params = useSearchParams();
   const handleNavigation = useNavigation();
   const [showModal, setShowModal] = useState(false);
+  const [productInfo, setProductInfo] = useState<any>({});
 
   const handleScrap = () => {
     setShowModal(true);
     setTimeout(() => {
       setShowModal(false);
     }, 3000);
+    post();
   };
+
+  const fetch = async () => {
+    const response: any = await getProduct(params.get("id"));
+    setProductInfo(response.data.product);
+  };
+
+  const post = async () => {
+    const response: any = await postScrap(params.get("id"));
+    console.log(response);
+  };
+
+  useEffect(() => {
+    fetch();
+  }, []);
 
   return (
     <>
-      <Header>오아시스 상점</Header>
+      <Header>제품 정보</Header>
       <StyledWrapper>
-        <StyledImg
-          src="https://images.pet-friends.co.kr/storage/pet_friends/product/id/e/a/3/9/5/2/e/ea3952e5e18790919174bd0d8bbc02c4/10001/82d024f9f7167cb34efd0c4c9df2067d.jpeg"
-          alt="제품 이미지"
-        />
+        <StyledImg src={productInfo.thumbnailUrl} alt="제품 이미지" />
         <StyledInnerWrapper>
           <StyledSource>
-            오아시스 상점 {">"} 고양이 {">"} 용품 {">"} 치약*칫솔
+            오아시스 상점 {">"} {productInfo.pcg} {">"} {productInfo.scg} {">"}{" "}
+            {productInfo.dcg}
           </StyledSource>
-          <StyledName>버박 C.E.T 이중효소 닭고기맛 70g</StyledName>
-          <StyledPrice>15000원</StyledPrice>
+          <StyledName>{productInfo.name}</StyledName>
+          <StyledPrice>{productInfo.price}원</StyledPrice>
           <StyledRatingWrapper>
-            5.0
-            <StarRating rating={5.0} />
+            {productInfo.avgScore}
+            <StarRating rating={productInfo.avgScore} />
           </StyledRatingWrapper>
           <HorizontalLine />
           <StyledButtonWrapper>
             <StyledButton
               type="button"
               $design="unfill"
-              onClick={() => handleNavigation("productDetail")}
+              onClick={() =>
+                handleNavigation(`productDetail?id=${params.get("id")}`)
+              }
             >
               상세보기
             </StyledButton>
             <StyledButton
               type="button"
               $design="unfill"
-              onClick={() => handleNavigation("productReview")}
+              onClick={() =>
+                handleNavigation(`productReview?id=${params.get("id")}`)
+              }
             >
               후기보기
             </StyledButton>
