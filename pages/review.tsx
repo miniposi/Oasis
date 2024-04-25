@@ -15,6 +15,7 @@ function ReviewPage() {
   const imgRef = useRef<HTMLInputElement>(null);
   const [starRate, setStarRate] = useState(0);
   const [productInfo, setProductInfo] = useState<any>({});
+  const handleNavigation = useNavigation();
 
   const Props = {
     productId: params.get("id"),
@@ -24,9 +25,12 @@ function ReviewPage() {
   };
 
   const handleSubmit = async () => {
-    console.log(imgFile);
     const response = await sendReview(Props);
-    console.log(response);
+    if (response === "OK") {
+      handleNavigation(`/productReview?id=${params.get("id")}`);
+    } else {
+      alert("다시 시도해주세요!");
+    }
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -36,9 +40,12 @@ function ReviewPage() {
   const handleUpload = () => {
     if (imgRef.current && imgRef.current.files) {
       const img = imgRef.current.files[0];
-      setImgFile(img);
+      const extension = img.name.split(".").pop()?.toLowerCase();
+      const newFileName = `uploaded_file.${extension}`;
 
-      //이미지 미리보기 기능
+      const lowerCaseFile = new File([img], newFileName, { type: img.type });
+      setImgFile(lowerCaseFile);
+
       const reader = new FileReader();
       reader.readAsDataURL(img);
       reader.onload = () => {

@@ -18,7 +18,6 @@ function ProductReviewPage() {
     setProductInfo(response.data.product);
     const result: any = await getReview(params.get("id"));
     setReviews(result.data);
-    console.log(result.data);
   };
 
   useEffect(() => {
