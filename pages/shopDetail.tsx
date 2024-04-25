@@ -3,18 +3,20 @@ import styled from "styled-components";
 import Header from "@/components/Header";
 import StarRating from "@/components/StarRating";
 import useNavigation from "@/hooks/useNavigation";
-import { useEffect } from "react";
-import getProduct from "./api/getProduct";
-import useAsync from "@/hooks/useAsync";
+import { useEffect, useState } from "react";
+import getProductList from "./api/getProductList";
 
 function ShopDetailPage() {
   const params = useSearchParams();
+  const pcg = params.get("pcg");
+  const scg = params.get("scg");
+  const dcg = params.get("dcg");
   const handleNavigation = useNavigation();
-  const { execute } = useAsync(getProduct);
+  const [productList, setProductList] = useState([]);
 
   const fetch = async () => {
-    const response: any = await execute();
-    console.log(response);
+    const response: any = await getProductList(pcg, scg, dcg);
+    setProductList(response.data.productList);
   };
 
   useEffect(() => {
@@ -23,23 +25,24 @@ function ShopDetailPage() {
 
   return (
     <>
-      <Header>{params.get("category")}</Header>
+      <Header>{params.get("ko")}</Header>
       <StyledWrapper>
-        {/* @TODO 데이터로 mapping */}
-        <StyledContent onClick={() => handleNavigation("product")}>
-          <StyledImg
-            src="https://images.pet-friends.co.kr/storage/pet_friends/product/id/e/a/3/9/5/2/e/ea3952e5e18790919174bd0d8bbc02c4/10001/82d024f9f7167cb34efd0c4c9df2067d.jpeg"
-            alt="이미지 디테일"
-          />
-          <StyledInnerWrapper>
-            <p>버박 C.E.T 이중효소 닭고기맛 70g</p>
-            <p>15000원</p>
-            <StyledRatingWrapper>
-              <StarRating rating={1.8} />
-              <p>(12300)</p>
-            </StyledRatingWrapper>
-          </StyledInnerWrapper>
-        </StyledContent>
+        {productList.map((item: any) => (
+          <StyledContent
+            key={item.id}
+            onClick={() => handleNavigation(`product?id=${item.id}`)}
+          >
+            <StyledImg src={item.thumbnailUrl} alt="이미지 디테일" />
+            <StyledInnerWrapper>
+              <StyledName>{item.name}</StyledName>
+              <p>{item.price}원</p>
+              <StyledRatingWrapper>
+                <StarRating rating={item.avgScore} />
+                <p>({item.reviewCount})</p>
+              </StyledRatingWrapper>
+            </StyledInnerWrapper>
+          </StyledContent>
+        ))}
       </StyledWrapper>
     </>
   );
@@ -54,6 +57,7 @@ const StyledWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-row-gap: 30px;
+  overflow: scroll;
 `;
 
 const StyledContent = styled.div`
@@ -66,11 +70,16 @@ const StyledContent = styled.div`
 
 const StyledInnerWrapper = styled.div`
   width: 230px;
-  height: 114px;
+  height: 120px;
   font-size: 18px;
   display: flex;
   flex-direction: column;
   gap: 5px;
+`;
+
+const StyledName = styled.div`
+  max-height: 60px;
+  overflow-y: scroll;
 `;
 
 const StyledImg = styled.img`
