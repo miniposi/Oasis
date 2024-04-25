@@ -35,8 +35,8 @@ const StyledImg = styled.img`
   width: 380px;
   object-fit: contain;
   position: absolute;
-  top: 140px;
-  left: 270px;
+  top: 200px;
+  left: 360px;
   z-index: 1;
 `;
 
