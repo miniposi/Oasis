@@ -4,8 +4,8 @@ import Header from "@/components/Header";
 import RecordStarRating from "@/components/RecordStarRating";
 import useNavigation from "@/hooks/useNavigation";
 import { useCallback, useEffect, useRef, useState } from "react";
-import sendReview from "./api/sendReview";
-import getProduct from "./api/getProduct";
+import sendReview from "@/api/sendReview";
+import getProduct from "@/api/getProduct";
 
 function ReviewPage() {
   const params = useSearchParams();

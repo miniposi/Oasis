@@ -1,10 +1,10 @@
 import Header from "@/components/Header";
 import StarRating from "@/components/StarRating";
 import styled from "styled-components";
-import getScrapList from "./api/getScrapList";
-import deleteScrap from "./api/deleteScrap";
+import getScrapList from "@/api/getScrapList";
+import deleteScrap from "@/api/deleteScrap";
 import { useEffect, useState } from "react";
-import getUser from "./api/getUser";
+import getUser from "@/api/getUser";
 import useNavigation from "@/hooks/useNavigation";
 
 function MyScrapPage() {

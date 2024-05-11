@@ -3,8 +3,8 @@ import styled from "styled-components";
 import Header from "@/components/Header";
 import StarRating from "@/components/StarRating";
 import useNavigation from "@/hooks/useNavigation";
-import getReview from "./api/getReview";
-import getProduct from "./api/getProduct";
+import getReview from "@/api/getReview";
+import getProduct from "@/api/getProduct";
 import { useEffect, useState } from "react";
 
 function ProductReviewPage() {

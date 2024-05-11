@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import StarRating from "@/components/StarRating";
 import useNavigation from "@/hooks/useNavigation";
 import { useEffect, useState } from "react";
-import getProductList from "./api/getProductList";
+import getProductList from "@/api/getProductList";
 
 function ShopDetailPage() {
   const params = useSearchParams();

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import CanvasModal from "./CanvasModal";
-import getUser from "@/pages/api/getUser";
+import getUser from "@/api/getUser";
 
 interface CanvasProps {
   width: number;
@@ -32,10 +32,6 @@ const TownCanvas: React.FC<CanvasProps> = ({ width, height }) => {
     setShopShowModal(true);
   };
 
-  const handleCom = () => {
-    setComShowModal(true);
-  };
-
   useEffect(() => {
     const canvasCur = canvasRef.current;
     if (!canvasCur) return;
@@ -62,10 +58,6 @@ const TownCanvas: React.FC<CanvasProps> = ({ width, height }) => {
 
         if (character.x <= 1040 && character.x >= 960 && character.y === 80) {
           handleShop();
-        }
-
-        if (character.x <= 580 && character.x >= 440 && character.y === 500) {
-          handleCom();
         }
 
         context?.drawImage(characterImage, character.x, character.y, 100, 100);

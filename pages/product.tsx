@@ -6,8 +6,8 @@ import HorizontalLine from "@/components/HorizontalLine";
 import useNavigation from "@/hooks/useNavigation";
 import Modal from "@/components/Modal";
 import { useEffect, useState } from "react";
-import getProduct from "./api/getProduct";
-import postScrap from "./api/postScrap";
+import getProduct from "@/api/getProduct";
+import postScrap from "@/api/postScrap";
 
 interface ButtonProps {
   $design: "fill" | "unfill";
