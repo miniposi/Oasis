@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import { signIn, useSession } from "next-auth/react";
+import useNavigation from "@/hooks/useNavigation";
 
 function LoginPage() {
   const handleLogin = async () => {
     await signIn("google");
   };
+  const handleNavigation = useNavigation();
 
   return (
     <StyledWrapper>
@@ -20,7 +22,7 @@ function LoginPage() {
         <StyledButton
           type="button"
           style={{ backgroundColor: "#FFF" }}
-          onClick={() => signIn("google", { callbackUrl: "/custom" })}
+          onClick={() => handleNavigation("custom")}
         >
           <StyledButtonImg src="icon/googleicon.png" alt="구글 아이콘" />
           Sign in with Google

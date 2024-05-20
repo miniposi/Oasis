@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import postLogin from "@/api/postLogin";
 import { useSession } from "next-auth/react";
 import useNavigation from "@/hooks/useNavigation";
+import getRandomKey from "@/api/getRandomKey";
 
 interface ButtonProps {
   $isActive: boolean;
@@ -43,19 +44,18 @@ function CustomPage() {
   };
 
   const fetch = async () => {
-    const response = await postLogin(
-      "ya29.a0Ad52N38zUxfxX9pnIlcb9AOzFXygjnCZJrr4BaO5yl8C3MQqs-pYwt2WQlZAqb3tRzC1rNuKIJ4pnPYaEWVfqaX0klh29RANeV1_vE4Fgzk4KWi-0Ozjg5YflxOMaTekm52Zh9duHTBlqEBIYU0Tj6TFvG4vFYu2Gj4aCgYKAUASARISFQHGX2MiXSplrNI5T4l3ERHzjPU1AQ0170"
-    );
-    console.log(response);
+    const result: any = await getRandomKey();
+    setAccessToken(result.data.accessToken);
+    console.log(result.data.accessToken);
+    // const response = await postLogin(
+    //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMwNDUxMTZlLTMxZmUtNDg2YS05Yjk1LTRiNTM5MWEwNDQ1ZiIsImlhdCI6MTcxNTc4NjcwMywiZXhwIjoxNzE2MzkxNTAzfQ.RdZdWqH3rqsEXMXuZpevbki6EIaYMNUVnhaJngNFTlo"
+    // );
+    // console.log(response);
   };
 
   useEffect(() => {
     fetch();
   }, []);
-
-  const session = useSession();
-
-  console.log(session);
 
   return (
     <StyledWrapper>

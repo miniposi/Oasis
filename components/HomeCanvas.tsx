@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import CanvasModal from "./CanvasModal";
-import getUser from "@/pages/api/getUser";
+import getUser from "@/api/getUser";
 
 interface CanvasProps {
   width: number;
@@ -48,11 +48,11 @@ const HomeCanvas: React.FC<CanvasProps> = ({ width, height }) => {
       const characterImage = new Image();
       characterImage.src = profilePic;
       characterImage.onload = () => {
-        if (character.x <= 1000 && character.x >= 920 && character.y === 200) {
+        if (character.x <= 1030 && character.x >= 950 && character.y === 200) {
           handleOut();
         }
 
-        if (character.x <= 440 && character.x >= 320 && character.y === 200) {
+        if (character.x <= 470 && character.x >= 350 && character.y === 200) {
           handleScrap();
         }
 
