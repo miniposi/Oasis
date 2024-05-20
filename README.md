@@ -1,40 +1,26 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 펫 리뷰 오아시스
 
-## Getting Started
+# <img width="160" align=left src="public/custom/dog1.png" alt="말티즈 아이콘" style="background: #FFF; border-radius: 30px;"/> <br>&nbsp; 🦾 펫 리뷰 오아시스
 
-First, run the development server:
+&nbsp;&nbsp; 메타버스를 활용한 반려동물 용품 관리 웹 서비스, 펫 리뷰 오아시스
+<br /> &nbsp;&nbsp; <a href="https://github.com/miniposi/Oasis/tree/main" style='font-weight: 700; '>Oasis</a> &nbsp;&nbsp;&nbsp;|
+&nbsp;&nbsp; <a href="https://github.com/miniposi/Oasis/wiki/%ED%8E%98%EC%9D%B4%EC%A7%80%EB%B3%84-%EC%86%8C%EA%B0%9C" style='font-weight: 700; '>wiki</a>
+<br>
+<br>
+<br>
+<br>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 📅 개발기간
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2024-04-10 ~ 2024-04-22
+<br>
+<br>
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## ⚙️ 기술 스택
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+|  카테고리  |                                                                                                        스택                                                                                                        |
+| :--------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|    공통    |                                            <img src="https://img.shields.io/badge/npm-CB3837?style=flat&logo=npm&logoColor=white" /> <img src="https://zrr.kr/2Zaf" />                                             |
+| 프론트엔드 | <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=React&logoColor=white" /> <img src="https://img.shields.io/badge/styled components-DB7093?style=flat&logo=styledcomponents&logoColor=white" /> |
+|   CI/CD    |                                                   <img src="https://img.shields.io/badge/Github Actions-2088FF?style=flat&logo=githubactions&logoColor=white" />                                                   |
+| 협업 도구  |          <img src="https://img.shields.io/badge/Github-181717?style=flat&logo=github&logoColor=white" /> <img src="https://img.shields.io/badge/Notion-000000?style=flat&logo=notion&logoColor=white" />           |
