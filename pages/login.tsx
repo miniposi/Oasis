@@ -1,12 +1,16 @@
 import styled from "styled-components";
-import { signIn, useSession } from "next-auth/react";
-import useNavigation from "@/hooks/useNavigation";
+import axiosInstance from "@/api/settings/axiosInstance";
+import postLogin from "@/api/postLogin";
 
 function LoginPage() {
   const handleLogin = async () => {
-    await signIn("google");
+    window.location.href =
+      "https://accounts.google.com/o/oauth2/auth?" +
+      "client_id=297377295952-lpkitn6b6hf62jl1iv8d4pfikokoerg4.apps.googleusercontent.com&" +
+      "redirect_uri=http://localhost:3000/custom&" +
+      "response_type=token&" +
+      "scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile";
   };
-  const handleNavigation = useNavigation();
 
   return (
     <StyledWrapper>
@@ -22,7 +26,7 @@ function LoginPage() {
         <StyledButton
           type="button"
           style={{ backgroundColor: "#FFF" }}
-          onClick={() => handleNavigation("custom")}
+          onClick={() => handleLogin()}
         >
           <StyledButtonImg src="icon/googleicon.png" alt="구글 아이콘" />
           Sign in with Google

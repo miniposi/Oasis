@@ -5,6 +5,8 @@ import postLogin from "@/api/postLogin";
 import { useSession } from "next-auth/react";
 import useNavigation from "@/hooks/useNavigation";
 import getRandomKey from "@/api/getRandomKey";
+import putUser from "@/api/putUser";
+import getUser from "@/api/getUser";
 
 interface ButtonProps {
   $isActive: boolean;
@@ -24,18 +26,13 @@ function CustomPage() {
 
   const handleAnimalType = (type: "cat" | "dog") => {
     setType(type);
-    if (type === "cat") setSpecies("코리안 숏헤어");
-    else setSpecies("말티즈");
-  };
-
-  const getCustomMap = (type: "cat" | "dog") => {
-    return type === "cat" ? CustomCatData : CustomDogData;
-  };
-
-  const handleSubmit = (event: { preventDefault: () => void }) => {
-    // 폼 제출 막기
-    event.preventDefault();
-    // @TODO 백엔드로 캐릭터 데이터 넘기기
+    if (type === "cat") {
+      setSpecies("코리안 숏헤어");
+      setSelectedID(1);
+    } else {
+      setSpecies("말티즈");
+      setSelectedID(1);
+    }
   };
 
   const handleSelect = (item: any) => {
@@ -43,14 +40,46 @@ function CustomPage() {
     setSelectedID(item.id);
   };
 
+  const getCustomMap = (type: "cat" | "dog") => {
+    return type === "cat" ? CustomCatData : CustomDogData;
+  };
+
+  // 로그인 시에 토큰을 쿠키에 저장하는 함수
+  function setCookie(name: string, value: string, days: number) {
+    const expires = new Date(
+      Date.now() + days * 24 * 60 * 60 * 1000
+    ).toUTCString();
+    document.cookie = `${name}=${value}; expires=${expires}; path=/; SameSite=Lax`;
+  }
+
+  const handleSubmit = async (event: { preventDefault: () => void }) => {
+    // 폼 제출 막기
+    event.preventDefault();
+
+    // 백엔드로 캐릭터 데이터 넘기기
+    const userData = {
+      name: name,
+      breed: species,
+    };
+    const response: any = await putUser(userData);
+    if (response.status === 200) {
+      handleNavigation("/shop");
+    } else {
+      alert("로그인부터 다시 진행해주세요");
+    }
+  };
+
   const fetch = async () => {
-    const result: any = await getRandomKey();
-    setAccessToken(result.data.accessToken);
-    console.log(result.data.accessToken);
-    // const response = await postLogin(
-    //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMwNDUxMTZlLTMxZmUtNDg2YS05Yjk1LTRiNTM5MWEwNDQ1ZiIsImlhdCI6MTcxNTc4NjcwMywiZXhwIjoxNzE2MzkxNTAzfQ.RdZdWqH3rqsEXMXuZpevbki6EIaYMNUVnhaJngNFTlo"
-    // );
-    // console.log(response);
+    const parsedHash = new URLSearchParams(window.location.hash.substring(1));
+    const accessToken = parsedHash.get("access_token");
+
+    const response: any = await postLogin(accessToken);
+    setCookie("accessToken", response.data.accessToken, 7);
+
+    const result: any = await getUser();
+    if (result.data.user.name !== null) {
+      handleNavigation("/shop");
+    }
   };
 
   useEffect(() => {
@@ -99,10 +128,7 @@ function CustomPage() {
             onChange={(e) => setName(e.target.value)}
           />
           <StyledSelectedSpecies>{species}</StyledSelectedSpecies>
-          <StyledSubmitButton
-            type="button"
-            onClick={() => handleNavigation("shop")}
-          >
+          <StyledSubmitButton type="button" onClick={handleSubmit}>
             선택 완료
           </StyledSubmitButton>
         </StyledContent>
