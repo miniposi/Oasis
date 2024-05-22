@@ -1,7 +1,7 @@
 import axios from "axios";
 import getCookie from "@/hooks/getCookie";
 
-async function getUser() {
+async function putUser(userData: { name: string; breed: string }) {
   const accessToken = getCookie("accessToken");
 
   const axiosInstance = axios.create({
@@ -10,11 +10,11 @@ async function getUser() {
   });
 
   try {
-    const response = await axiosInstance.get(`/user`);
+    const response = await axiosInstance.put(`/user`, userData);
     return response;
   } catch (error) {
     return error;
   }
 }
 
-export default getUser;
+export default putUser;
