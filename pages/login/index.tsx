@@ -1,15 +1,14 @@
 import styled from "styled-components";
-import axiosInstance from "@/api/settings/axiosInstance";
-import postLogin from "@/api/postLogin";
+import config from "@/config";
 
 function LoginPage() {
   const handleLogin = async () => {
     window.location.href =
-      "https://accounts.google.com/o/oauth2/auth?" +
-      "client_id=297377295952-lpkitn6b6hf62jl1iv8d4pfikokoerg4.apps.googleusercontent.com&" +
-      "redirect_uri=http://localhost:3000/custom&" +
-      "response_type=token&" +
-      "scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile";
+      `${config.oauthURL}?` +
+      `client_id=${config.cliendID}&` +
+      `redirect_uri=${config.redirectURL}` +
+      'response_type=token&' +
+      `scope=${config.oauthScope}`;
   };
 
   return (
