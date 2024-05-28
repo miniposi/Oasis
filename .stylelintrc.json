@@ -1,0 +1,65 @@
+{
+  "extends": "stylelint-config-standard",
+  "plugins": ["stylelint-order"],
+  "rules": {
+    "selector-class-pattern": "^[a-z][a-zA-Z0-9]+$",
+    "order/properties-order": [
+      [
+        {
+          "groupName": "Positioning",
+          "properties": [
+            "position",
+            "top",
+            "right",
+            "bottom",
+            "left",
+            "z-index"
+          ]
+        },
+        {
+          "groupName": "Box Model",
+          "properties": [
+            "display",
+            "width",
+            "height",
+            "margin",
+            "padding",
+            "border",
+            "border-width",
+            "border-style",
+            "border-color"
+          ]
+        },
+        {
+          "groupName": "Typography",
+          "properties": [
+            "font",
+            "font-family",
+            "font-size",
+            "font-weight",
+            "line-height",
+            "text-align",
+            "text-transform"
+          ]
+        },
+        {
+          "groupName": "Visual",
+          "properties": [
+            "color",
+            "background",
+            "background-color",
+            "background-image",
+            "background-size"
+          ]
+        },
+        {
+          "groupName": "Animation",
+          "properties": ["transition", "animation"]
+        }
+      ],
+      {
+        "unspecified": "bottom"
+      }
+    ]
+  }
+}
