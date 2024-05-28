@@ -1,0 +1,44 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 300px;
+  max-height: 100vh;
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 30px;
+}
+
+.mainImg {
+  width: 424px;
+  margin: 0 100px;
+  transform: rotate(-1.661deg);
+}
+
+.buttonImg {
+  width: 50px;
+  height: 50px;
+}
+
+.title {
+  font-size: 32px;
+  text-align: center;
+}
+
+.loginButton {
+  display: flex;
+  width: 521px;
+  height: 83px;
+  border: 0;
+  font-size: 24px;
+  text-align: center;
+  color: #3e2723;
+  border-radius: 80px;
+  filter: drop-shadow(0 4px 4px rgb(0 0 0 / 25%));
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
