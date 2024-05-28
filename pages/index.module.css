@@ -1,6 +1,6 @@
 .wrapper {
   display: flex;
-  color: var(primary);
+  color: var(--primary);
   flex-direction: column;
   justify-content: center;
   max-height: 100vh;
@@ -19,7 +19,7 @@
   left: 50%;
   z-index: 3;
   text-align: center;
-  color: #678fae;
+  color: var(--primary);
   transform: translate(-50%, -50%);
 }
 
@@ -39,8 +39,8 @@
   font-size: 24px;
   line-height: normal;
   text-align: center;
-  color: #678fae;
-  background-color: #f6eac2;
+  color: var(--primary);
+  background-color: var(--background);
   border-radius: 86px;
   filter: drop-shadow(0 4px 4px rgb(0 0 0 / 25%));
 }

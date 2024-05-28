@@ -1,5 +1,4 @@
 :root {
-	primary: #678fae;
-	background: #f6eac2;
-	
+  --background: #f6eac2;
+  --primary: #678fae;
 }
