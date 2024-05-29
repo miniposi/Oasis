@@ -2,9 +2,7 @@ import styled from "styled-components";
 import { CustomCatData, CustomDogData } from "@/data/CustomData";
 import { useEffect, useState } from "react";
 import postLogin from "@/api/postLogin";
-import { useSession } from "next-auth/react";
 import useNavigation from "@/hooks/useNavigation";
-import getRandomKey from "@/api/getRandomKey";
 import putUser from "@/api/putUser";
 import getUser from "@/api/getUser";
 
