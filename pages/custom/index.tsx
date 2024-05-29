@@ -17,6 +17,10 @@ function CustomPage() {
   const [species, setSpecies] = useState<string>("말티즈");
   const [selectedID, setSelectedID] = useState(1);
   const handleNavigation = useNavigation();
+  const typeDefaultMap = {
+    cat: "코리안 숏헤어",
+    dog: "말티즈",
+  };
 
   function getCustomMap(type: "cat" | "dog") {
     return type === "cat" ? CustomCatData : CustomDogData;
@@ -24,13 +28,8 @@ function CustomPage() {
 
   function handleAnimalType(type: "cat" | "dog") {
     setType(type);
-    if (type === "cat") {
-      setSpecies("코리안 숏헤어");
-      setSelectedID(1);
-    } else {
-      setSpecies("말티즈");
-      setSelectedID(1);
-    }
+    setSpecies(typeDefaultMap[type]);
+    setSelectedID(1);
   }
 
   function handleSelect(item: any) {
@@ -49,8 +48,8 @@ function CustomPage() {
 
     // 백엔드로 캐릭터 데이터 넘기기
     try {
-      const response = await putUser(userData);
-      handleNavigation("/shop");
+      const response: any = await putUser(userData);
+      if (response.data.user.name !== null) handleNavigation("/shop");
     } catch (error) {
       alert("로그인부터 다시 진행해주세요");
       handleNavigation("/login");
