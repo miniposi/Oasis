@@ -1,6 +1,7 @@
-import axiosInstance from "./settings/axiosInstance";
+import createAxiosInstance from "./settings/axiosInstance";
 
 async function deleteScrap(id: any) {
+  const axiosInstance = createAxiosInstance();
   try {
     const response = await axiosInstance.delete(
       `/product/scrap?productId=${id}`

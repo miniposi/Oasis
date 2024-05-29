@@ -1,6 +1,7 @@
-import axiosInstance from "./settings/axiosInstance";
+import createAxiosInstance from "./settings/axiosInstance";
 
 async function postScrap(id: any) {
+  const axiosInstance = createAxiosInstance();
   try {
     const response = await axiosInstance.post(`/product/scrap?productId=${id}`);
     return response;

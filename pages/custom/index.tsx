@@ -21,7 +21,6 @@ function CustomPage() {
   const [name, setName] = useState<string>("");
   const [species, setSpecies] = useState<string>("말티즈");
   const [selectedID, setSelectedID] = useState(1);
-  const [accessToken, setAccessToken] = useState<string | null>("");
   const handleNavigation = useNavigation();
 
   const handleAnimalType = (type: "cat" | "dog") => {
@@ -72,13 +71,17 @@ function CustomPage() {
   const fetch = async () => {
     const parsedHash = new URLSearchParams(window.location.hash.substring(1));
     const accessToken = parsedHash.get("access_token");
-
     const response: any = await postLogin(accessToken);
-    setCookie("accessToken", response.data.accessToken, 7);
+    if (response.status === 200) {
+      setCookie("accessToken", response.data.accessToken, 7);
 
-    const result: any = await getUser();
-    if (result.data.user.name !== null) {
-      handleNavigation("/shop");
+      const result: any = await getUser();
+      if (result.data.user.name !== null) {
+        handleNavigation("/shop");
+      }
+    } else {
+      alert("로그인을 다시 진행해주세요");
+      handleNavigation("/login");
     }
   };
 

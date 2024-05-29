@@ -1,6 +1,7 @@
-import axiosInstance from "./settings/axiosInstance";
+import createAxiosInstance from "./settings/axiosInstance";
 
 async function sendReview(Props: any) {
+  const axiosInstance = createAxiosInstance();
   const formData = new FormData();
   formData.append("productId", Props.productId);
   formData.append("content", Props.content);

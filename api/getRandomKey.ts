@@ -1,6 +1,7 @@
-import axiosInstance from "./settings/axiosInstance";
+import createAxiosInstance from "./settings/axiosInstance";
 
 async function getRandomKey() {
+  const axiosInstance = createAxiosInstance();
   try {
     const response = await axiosInstance.get(`/auth/token`);
     return response;
