@@ -2,14 +2,14 @@ import config from "@/config";
 import styles from "./login.module.css";
 
 function LoginPage() {
-  const handleLogin = async () => {
+  async function handleLogin() {
     window.location.href =
       `${config.oauthURL}?` +
       `client_id=${config.clientID}&` +
       `redirect_uri=${config.redirectURL}&` +
       `response_type=token&` +
       `scope=${config.oauthScope}`;
-  };
+  }
 
   return (
     <div className={styles["wrapper"]}>
