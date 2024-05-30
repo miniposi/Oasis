@@ -1,8 +1,7 @@
 import { useState } from "react";
-import styled from "styled-components";
 import styles from "./shop.module.css";
 import { PetCategoryProps, PetCategoryData } from "@/data/ShopData";
-import Header from "@/components/Header";
+import Header from "@/components/Header/Header";
 import useNavigation from "@/hooks/useNavigation";
 
 interface TypeProps {

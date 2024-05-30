@@ -1,6 +1,6 @@
 import { useSearchParams } from "next/navigation";
 import styles from "./detail.module.css";
-import Header from "@/components/Header";
+import Header from "@/components/Header/Header";
 import StarRating from "@/components/StarRating";
 import useNavigation from "@/hooks/useNavigation";
 import { useEffect, useState } from "react";
