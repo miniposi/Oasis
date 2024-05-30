@@ -1,5 +1,5 @@
 import { useSearchParams } from "next/navigation";
-import styled from "styled-components";
+import styles from "./detail.module.css";
 import Header from "@/components/Header";
 import StarRating from "@/components/StarRating";
 import useNavigation from "@/hooks/useNavigation";
@@ -8,89 +8,53 @@ import getProductList from "@/api/getProductList";
 
 function ShopDetailPage() {
   const params = useSearchParams();
-  const pcg = params.get("pcg");
-  const scg = params.get("scg");
-  const dcg = params.get("dcg");
-  const handleNavigation = useNavigation();
   const [productList, setProductList] = useState([]);
+  const handleNavigation = useNavigation();
 
-  const fetch = async () => {
-    const response: any = await getProductList(pcg, scg, dcg);
-    setProductList(response.data.productList);
-  };
+  async function fetchProductList() {
+    try {
+      const pcg = params.get("pcg");
+      const scg = params.get("scg");
+      const dcg = params.get("dcg");
+      const response: any = await getProductList(pcg, scg, dcg);
+      setProductList(response.data.productList);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
-    fetch();
+    fetchProductList();
   }, []);
 
   return (
     <>
       <Header>{params.get("ko")}</Header>
-      <StyledWrapper>
+      <div className={styles["wrapper"]}>
         {productList.map((item: any) => (
-          <StyledContent
+          <div
+            className={styles["content-wrapper"]}
             key={item.id}
             onClick={() => handleNavigation(`product?id=${item.id}`)}
           >
-            <StyledImg src={item.thumbnailUrl} alt="이미지 디테일" />
-            <StyledInnerWrapper>
-              <StyledName>{item.name}</StyledName>
+            <img
+              className={styles["detail-img"]}
+              src={item.thumbnailUrl}
+              alt="이미지 디테일"
+            />
+            <div className={styles["content"]}>
+              <p className={styles["name-text"]}>{item.name}</p>
               <p>{item.price}원</p>
-              <StyledRatingWrapper>
+              <div className={styles["rating-wrapper"]}>
                 <StarRating rating={item.avgScore} />
                 <p>({item.reviewCount})</p>
-              </StyledRatingWrapper>
-            </StyledInnerWrapper>
-          </StyledContent>
+              </div>
+            </div>
+          </div>
         ))}
-      </StyledWrapper>
+      </div>
     </>
   );
 }
 
 export default ShopDetailPage;
-
-const StyledWrapper = styled.div`
-  width: 1450px;
-  margin: auto;
-  padding-top: 30px;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-row-gap: 30px;
-  overflow: scroll;
-`;
-
-const StyledContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-`;
-
-const StyledInnerWrapper = styled.div`
-  width: 230px;
-  height: 120px;
-  font-size: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-`;
-
-const StyledName = styled.div`
-  max-height: 60px;
-  overflow-y: scroll;
-`;
-
-const StyledImg = styled.img`
-  width: 260px;
-  height: 260px;
-  border-radius: 30px;
-`;
-
-const StyledRatingWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  font-size: 16px;
-  color: #c0c0c0;
-`;
