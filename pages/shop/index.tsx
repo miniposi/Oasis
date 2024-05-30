@@ -15,17 +15,17 @@ function ShopPage() {
   const [category, setCategory] = useState<TypeProps["category"]>("food");
   const handleNavigation = useNavigation();
 
-  const handleSelect = (type: TypeProps["animal"]) => {
+  function handleSelect(type: TypeProps["animal"]) {
     setType(type);
-  };
+  }
 
-  const handleCategory = (category: TypeProps["category"]) => {
+  function handleCategory(category: TypeProps["category"]) {
     setCategory(category);
-  };
+  }
 
-  const getCategoryMap = (type: TypeProps["animal"], category: TypeProps["category"]): PetCategoryProps[] => {
+  function getCategoryMap(type: TypeProps["animal"], category: TypeProps["category"]): PetCategoryProps[] {
     return PetCategoryData[type][category];
-  };
+  }
 
   return (
     <>
