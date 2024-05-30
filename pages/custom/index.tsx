@@ -17,6 +17,7 @@ function CustomPage() {
   const [species, setSpecies] = useState<string>("말티즈");
   const [selectedID, setSelectedID] = useState(1);
   const handleNavigation = useNavigation();
+
   const typeDefaultMap = {
     cat: "코리안 숏헤어",
     dog: "말티즈",
@@ -52,7 +53,7 @@ function CustomPage() {
       if (response.data.user.name !== null) handleNavigation("/shop");
     } catch (error) {
       alert("로그인부터 다시 진행해주세요");
-      handleNavigation("/login");
+      handleNavigation("login");
     }
   }
 
@@ -65,7 +66,7 @@ function CustomPage() {
       setCookie("accessToken", response.data.accessToken, 7);
     } catch (error) {
       alert("로그인을 다시 진행해주세요");
-      handleNavigation("/login");
+      handleNavigation("login");
     }
   }
 
@@ -73,7 +74,7 @@ function CustomPage() {
     try {
       const result: any = await getUser();
       if (result.data.user.name !== null) {
-        handleNavigation("/shop");
+        handleNavigation("shop");
       }
     } catch (error) {
       alert("사용자 정보 조회 과정에서 문제가 발생했습니다.");
@@ -92,18 +93,14 @@ function CustomPage() {
         <div className={styles["select-wrapper"]}>
           <div className={styles["button-header"]}>
             <button
-              className={`${styles["select-button"]} ${
-                type === "dog" && styles["active-select-button"]
-              }`}
+              className={`${styles["select-button"]} ${type === "dog" && styles["active-select-button"]}`}
               type="button"
               onClick={() => handleAnimalType("dog")}
             >
               강아지
             </button>
             <button
-              className={`${styles["select-button"]} ${
-                type === "cat" && styles["active-select-button"]
-              }`}
+              className={`${styles["select-button"]} ${type === "cat" && styles["active-select-button"]}`}
               type="button"
               onClick={() => handleAnimalType("cat")}
             >
@@ -122,15 +119,7 @@ function CustomPage() {
                   src={item.src}
                   alt={item.name}
                 />
-                <p
-                  className={
-                    selectedID === item.id
-                      ? styles["active-name-tag"]
-                      : styles["name-tag"]
-                  }
-                >
-                  {item.name}
-                </p>
+                <p className={selectedID === item.id ? styles["active-name-tag"] : styles["name-tag"]}>{item.name}</p>
               </div>
             ))}
           </div>
