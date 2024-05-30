@@ -69,7 +69,7 @@ function ShopPage() {
           <div
             className={styles["content"]}
             key={item.name}
-            onClick={() => handleNavigation(`shopDetail?pcg=${type}&scg=${category}&dcg=${item.info}&ko=${item.name}`)}
+            onClick={() => handleNavigation(`shop/detail?pcg=${type}&scg=${category}&dcg=${item.info}&ko=${item.name}`)}
           >
             <img
               className={styles["icon-img"]}
