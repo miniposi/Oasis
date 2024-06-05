@@ -4,7 +4,6 @@ import Header from "@/components/Header/Header";
 import StarRating from "@/components/StarRating";
 import useNavigation from "@/hooks/useNavigation";
 import getReview from "@/api/getReview";
-import getProduct from "@/api/getProduct";
 import { useEffect, useState } from "react";
 import ReviewContent from "@/components/Review/ReviewContent";
 import { productState } from "@/hooks/getProduct";
@@ -17,16 +16,6 @@ function ProductReviewPage() {
   const id = useSearchParams().get("id");
   const handleNavigation = useNavigation();
 
-  async function handleProduct() {
-    try {
-      const response: any = await getProduct(id);
-      setProduct(response.data.product);
-    } catch (error) {
-      alert("해당 제품의 정보를 가져올 수 없어요!");
-      handleNavigation(`product?id=${id}`);
-    }
-  }
-
   async function handleReview() {
     try {
       const result: any = await getReview(id);
@@ -37,8 +26,11 @@ function ProductReviewPage() {
     }
   }
 
+  function handleMove() {
+    handleNavigation(`review/creation?id=${id}`);
+  }
+
   useEffect(() => {
-    handleProduct();
     handleReview();
   }, []);
 
@@ -58,8 +50,8 @@ function ProductReviewPage() {
             <StarRating rating={product.avgScore} />
           </div>
           <ReviewButton
-            id={String(id)}
             content="후기 작성하기"
+            onClick={handleMove}
           />
         </div>
         <div className={styles["right-wrapper"]}>
