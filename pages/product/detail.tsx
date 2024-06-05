@@ -1,11 +1,14 @@
 import styled from "styled-components";
-import Header from "@/components/Header";
+import Header from "@/components/Header/Header";
 
 function ProductDetailPage() {
   return (
     <StyledWrapper>
       <Header>제품명</Header>
-      <StyledImg src="cloud.png" alt="제품 상세 이미지" />
+      <StyledImg
+        src="cloud.png"
+        alt="제품 상세 이미지"
+      />
     </StyledWrapper>
   );
 }
