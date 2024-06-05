@@ -1,0 +1,27 @@
+.wrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.img-wrapper {
+  display: flex;
+  width: 100%;
+  max-height: 200px;
+  gap: 10px;
+  overflow: scroll hidden;
+}
+
+.review-text {
+  width: 100%;
+  margin: 10px;
+  font-size: 16px;
+  max-height: 200px;
+  overflow-y: scroll;
+}
+
+.review-img {
+  width: 200px;
+  height: 200px;
+}

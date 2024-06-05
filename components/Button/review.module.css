@@ -1,0 +1,11 @@
+.wrapper {
+  width: 520px;
+  height: 133px;
+  border: 0;
+  font-size: 32px;
+  text-align: center;
+  color: #678fae;
+  background: #abdee6;
+  border-radius: 30px;
+  margin-top: 20px;
+}
